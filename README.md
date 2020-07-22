@@ -1,12 +1,12 @@
 # rcpassword-tinycpdriver
-Instructions
 
-TinyCP
+
+# Instructions
 --------------
-In TinyCP Settings, add a low level ui access link;
-add this file and the TinyCPConnector.php into the roundcube/plugins/password/drivers/ folder
-update/respolve file permissions for www-data/apache
-Include the following in the password config.inc.php
+Download the TinyCPConnector.php from your tinycp Settings.
+Add the tinycp.php and the TinyCPConnector.php  the roundcube/plugins/password/drivers folder.
+update/respolve file permissions for www-data/apache.
+Include the following in the password roundcube/plugins/password/config.inc.php.
 set the driver to tinycp, past the following and changing the values for your own
 
 ```php
