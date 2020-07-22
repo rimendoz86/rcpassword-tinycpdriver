@@ -6,7 +6,7 @@ Enable the password driver in Roundcube (https://roundcube.net/) for the TinyCP 
 
 - Download the TinyCPConnector.php from your tinycp Settings.
 - Add the tinycp.php and the TinyCPConnector.php  the roundcube/plugins/password/drivers folder.
-- update/respolve file permissions for www-data/apache.
+- update/resolve file permissions for www-data/apache.
 - In the roundcube/plugins/password/config.inc.php.
 - set the driver to tinycp,
 ```php
