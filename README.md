@@ -1,6 +1,6 @@
 # rcpassword-tinycpdriver
 
-Enable the password driver in Roundcube (https://roundcube.net/) for the TinyCP Lightweight Linux Control Panel (https://tinycp.com/)
+Enable the password driver in Roundcube (https://roundcube.net/) for the TinyCP Lightweight Linux Control Panel (https://tinycp.com/).
 
 # Instructions
 
@@ -17,8 +17,8 @@ $config['password_driver'] = 'tinycp';
 ```php
 // Tiny CP
 // --------------
-$config["tinycp_host"] = "localhost";
-$config["tinycp_port"] = "80000";
-$config["tinycp_user"] = "APIUser";
-$config["tinycp_pass"] = "APIPass"; 
+$config["tinycp_host"] = '';
+$config["tinycp_port"] = '';
+$config["tinycp_user"] = '';
+$config["tinycp_pass"] = ''; 
 ```
