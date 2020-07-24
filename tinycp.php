@@ -2,12 +2,12 @@
 /**
  * tinycp driver
  *
- * change password for tinycp(tinycp.com) using its http API.
+ * Enable the password driver in Roundcube (https://roundcube.net/) for the TinyCP Lightweight Linux Control Panel (https://tinycp.com/).
  *
- * @version 1.0
+ * @version 1.1
  * @author Ricky Mendoza (HelloWorld@rickymendoza.dev)
  * 
- * Copyright (C) Ricky Mendoza @ RickyMendoza.dev
+ * Copyright (C) 2020 Ricky Mendoza @ RickyMendoza.dev
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,7 +20,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program. If not, see http://www.gnu.org/licenses/.
+ * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 require_once("TinyCPConnector.php");
@@ -34,18 +34,29 @@ class rcube_tinycp_password
         $tinycp_user = rcmail::get_instance()->config->get('tinycp_user');
         $tinycp_pass = rcmail::get_instance()->config->get('tinycp_pass');
 
-        $tcp = new TinyCPConnector($tinycp_host,$tinycp_port);
-
-        if($tcp->Auth($tinycp_user, $tinycp_pass) == false)
-        {
-            $this->PluginError("Auth Failure");
+        if (!$tinycp_host || !$tinycp_port || !$tinycp_user || !$tinycp_pass){
+            $this->PluginError("Missing configuration values. ");
             return PASSWORD_ERROR;
         }
 
-        $response = $tcp->mail___mailserver___email_pass_change2($username, $newpass);
+        $tcp = new TinyCPConnector($tinycp_host,$tinycp_port);
 
-        if (!is_null($response)){
-            $this->PluginError("Response Code not OK");
+        try {
+            $auth = $tcp->Auth($tinycp_user, $tinycp_pass); 
+        } catch (Exception $th) {
+            $this->PluginError("Unable to Authenticate:".$th->getMessage());
+            return PASSWORD_ERROR;
+        }          
+
+        try {
+            $response = $tcp->mail___mailserver___email_pass_change2($username, $newpass);
+        } catch (Exception $th) {
+            $this->PluginError("Unable to change password:".$th->getMessage());
+            return PASSWORD_ERROR;
+        }
+
+        if ($response){
+            $this->PluginError("Error:". $response);
             return PASSWORD_ERROR;
         }
         return PASSWORD_SUCCESS;
